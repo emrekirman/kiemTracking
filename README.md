@@ -13,3 +13,6 @@
   <li>JWT (Json Web Token)</li>
 </ul>
 <hr/>
+<p>
+  To create the database tables, set the <b>"create"</b> property spring.jpa.hibernate.ddl-auto in the src / main / resources folder.
+</p>
