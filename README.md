@@ -10,4 +10,5 @@
   <li>Angular</li>
   <li>Apache POI</li>
   <li>MySql</li>
+  <li>JWT (Json Web Token)</li>
 </ul>
