@@ -7,6 +7,7 @@
   <li>Spring Boot</li>
   <li>REST API</li>
   <li>JPA / Hibernate</li>
+  <li>Maven</li>
   <li>Angular</li>
   <li>Apache POI</li>
   <li>MySql</li>
