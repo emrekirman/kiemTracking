@@ -14,7 +14,7 @@
 </ul>
 <hr/>
 <p>
-  To create the database tables, set the spring.jpa.hibernate.ddl-auto property in the application.properties file in the src/main/resources folder to <b>"create"</b>.
+  To create the database tables, set the spring.jpa.hibernate.ddl-auto property in the application.properties file in the "src/main/resources folder" to <b>"create"</b>.
 </p>
 <p>
   Various operations such as database connection settings can be performed from the application.propoerties file.
