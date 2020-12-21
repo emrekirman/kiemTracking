@@ -5,5 +5,6 @@
   <li>Spring Framework</li>
   <li>Spring Boot</li>
   <li>REST API</li>
+  <li>JPA / Hibernate</li>
   <li>Angular</li>
 </ul>
