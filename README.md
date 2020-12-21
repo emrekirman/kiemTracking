@@ -2,6 +2,7 @@
 <hr>
 <h3>Used Technologies / Kullanılan Teknolojiler</h3>
 <ul>
+  <li>Java 8</li>
   <li>Spring Framework</li>
   <li>Spring Boot</li>
   <li>REST API</li>
