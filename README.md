@@ -8,4 +8,5 @@
   <li>JPA / Hibernate</li>
   <li>Angular</li>
   <li>Apache POI</li>
+  <li>MySql</li>
 </ul>
