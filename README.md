@@ -4,4 +4,6 @@
 <ul>
   <li>Spring Framework</li>
   <li>Spring Boot</li>
+  <li>REST API</li>
+  <li>Angular</li>
 </ul>
