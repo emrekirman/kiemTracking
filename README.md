@@ -20,5 +20,5 @@
   Various operations such as database connection settings can be performed from the application.propoerties file.
 </p>
 <p>
-  The frontend part of the project is a different project written with angular. --> https://github.com/emrekirman/kiemTrackingClient
+  The frontend part of the project is a different project written with Angular. --> https://github.com/emrekirman/kiemTrackingClient
 </p>
