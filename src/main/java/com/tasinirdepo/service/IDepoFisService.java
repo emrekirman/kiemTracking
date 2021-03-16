@@ -6,7 +6,7 @@ import com.tasinirdepo.dto.FaturaListeVM;
 import com.tasinirdepo.dto.StokMevcuduDto;
 import com.tasinirdepo.model.DepoFis;
 
-public interface IDepoFisService {
+public interface IDepoFisService extends IBaseService<DepoFis>{
 
 	List<DepoFis> findAll(boolean giris);
 

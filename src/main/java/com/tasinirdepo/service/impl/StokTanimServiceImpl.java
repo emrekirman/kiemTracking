@@ -10,37 +10,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.StokTanimRepository;
 import com.tasinirdepo.dto.FisHareketDto;
 import com.tasinirdepo.model.StokTanim;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.StokTanimService;
 
 @Service
 @Transactional
 @Qualifier("stokTanimService")
-public class StokTanimServiceImpl implements IBaseService<StokTanim>, StokTanimService {
+public class StokTanimServiceImpl implements StokTanimService {
 
-	private IBaseRepository<StokTanim> stokTanimRepository;
-
-	private StokTanimRepository stokTanimRepository2;
+	private StokTanimRepository stokTanimRepository;
 
 	@Autowired
 	@Qualifier("stokTanimRepository")
-	public void setRepository(IBaseRepository<StokTanim> stokTanimRepository) {
+	public void setRepository(StokTanimRepository stokTanimRepository) {
 		this.stokTanimRepository = stokTanimRepository;
-	}
-
-	@Autowired
-	@Qualifier("stokTanimRepository")
-	public void setStokTanimRepository2(StokTanimRepository stokTanimRepository2) {
-		this.stokTanimRepository2 = stokTanimRepository2;
 	}
 
 	@Override
 	public String getLastDepoKod() throws Exception {
-		List<String> data = stokTanimRepository2.getLastDepoKod();
+		List<String> data = stokTanimRepository.getLastDepoKod();
 		if (data.size() > 0) {
 			return data.get(0).split("-")[1];
 		}

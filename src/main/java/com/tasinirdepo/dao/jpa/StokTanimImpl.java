@@ -8,13 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.StokTanimRepository;
 import com.tasinirdepo.model.StokTanim;
 
 @Repository("stokTanimRepository")
 @Qualifier("stokTanimRepository")
-public class StokTanimImpl implements IBaseRepository<StokTanim>, StokTanimRepository {
+public class StokTanimImpl implements StokTanimRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;

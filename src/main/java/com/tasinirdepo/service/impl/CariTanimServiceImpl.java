@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.model.CariTanim;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.ICariTanimService;
 
 @Service
 @Transactional
 @Qualifier("cariTanimService")
-public class CariTanimServiceImpl implements IBaseService<CariTanim> {
+public class CariTanimServiceImpl implements ICariTanimService {
 
 	private IBaseRepository<CariTanim> cariTanimRepository;
 

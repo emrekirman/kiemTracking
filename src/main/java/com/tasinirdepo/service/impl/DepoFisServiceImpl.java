@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IDepoFisRepository;
+import com.tasinirdepo.dao.IFisHareketCikisRepository;
+import com.tasinirdepo.dao.IFisHareketRepository;
 import com.tasinirdepo.dto.FaturaListeVM;
 import com.tasinirdepo.dto.StokMevcuduDto;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
@@ -27,15 +28,13 @@ import com.tasinirdepo.service.IKullaniciIslemService;
 @Service
 @Transactional(rollbackFor = Exception.class)
 @Qualifier("depoFisService")
-public class DepoFisServiceImpl implements IBaseService<DepoFis>, IDepoFisService {
+public class DepoFisServiceImpl implements IDepoFisService {
 
-	private IBaseRepository<DepoFis> depoFisRepository;
+	private IDepoFisRepository depoFisRepository;
 
-	private IDepoFisRepository depoFisRepository2;
+	private IFisHareketRepository girisRepository;
 
-	private IBaseRepository<FisHareketGiris> girisRepository;
-
-	private IBaseRepository<FisHareketCikis> cikisRepository;
+	private IFisHareketCikisRepository cikisRepository;
 
 	private ILogginManager logRepo;
 
@@ -45,7 +44,7 @@ public class DepoFisServiceImpl implements IBaseService<DepoFis>, IDepoFisServic
 
 	@Override
 	public List<DepoFis> findAll(boolean giris) {
-		return depoFisRepository2.findAll(giris);
+		return depoFisRepository.findAll(giris);
 	}
 
 	@Override
@@ -79,7 +78,7 @@ public class DepoFisServiceImpl implements IBaseService<DepoFis>, IDepoFisServic
 
 	@Override
 	public int getNewFisNo() {
-		List<Integer> fisNolar = depoFisRepository2.getNewFisNo();
+		List<Integer> fisNolar = depoFisRepository.getNewFisNo();
 		return fisNolar.size() > 0 ? (fisNolar.get(0) + 1) : 1;
 	}
 
@@ -153,25 +152,19 @@ public class DepoFisServiceImpl implements IBaseService<DepoFis>, IDepoFisServic
 
 	@Autowired
 	@Qualifier("depoFisRepository")
-	public void setDepoFisRepository(IBaseRepository<DepoFis> depoFisRepository) {
-		this.depoFisRepository = depoFisRepository;
-	}
-
-	@Autowired
-	@Qualifier("depoFisRepository")
 	public void setDepoFisRepository2(IDepoFisRepository depoFisRepository2) {
-		this.depoFisRepository2 = depoFisRepository2;
+		this.depoFisRepository = depoFisRepository2;
 	}
 
 	@Autowired
 	@Qualifier("fisHareketGirisRepository")
-	public void setGirisRepository(IBaseRepository<FisHareketGiris> girisRepository) {
+	public void setGirisRepository(IFisHareketRepository girisRepository) {
 		this.girisRepository = girisRepository;
 	}
 
 	@Autowired
 	@Qualifier("fisHareketCikisRepository")
-	public void setCikisRepository(IBaseRepository<FisHareketCikis> cikisRepository) {
+	public void setCikisRepository(IFisHareketCikisRepository cikisRepository) {
 		this.cikisRepository = cikisRepository;
 	}
 

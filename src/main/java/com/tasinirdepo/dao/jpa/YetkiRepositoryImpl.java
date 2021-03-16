@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IYetkiRepository;
 import com.tasinirdepo.model.Yetki;
 
 @Repository("yetkiRepository")
 @Qualifier("yetkiRepository")
-public class YetkiRepositoryImpl implements IBaseRepository<Yetki> {
+public class YetkiRepositoryImpl implements IYetkiRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;

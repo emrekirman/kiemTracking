@@ -2,6 +2,8 @@ package com.tasinirdepo.dao;
 
 import java.util.List;
 
-public interface StokTanimRepository {
+import com.tasinirdepo.model.StokTanim;
+
+public interface StokTanimRepository extends IBaseRepository<StokTanim> {
 	List<String> getLastDepoKod();
 }

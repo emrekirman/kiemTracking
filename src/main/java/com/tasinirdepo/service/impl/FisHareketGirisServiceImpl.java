@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IFisHareketRepository;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
 import com.tasinirdepo.model.DepoFis;
@@ -22,11 +21,9 @@ import com.tasinirdepo.service.IKullaniciIslemService;
 @Service
 @Transactional
 @Qualifier("fisHareketGirisService")
-public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>, IFisHareketGirisService {
+public class FisHareketGirisServiceImpl implements IFisHareketGirisService {
 
-	private IBaseRepository<FisHareketGiris> fisHareketGirisRepository;
-
-	private IFisHareketRepository<FisHareketGiris> fisHareketRepository2;
+	private IFisHareketRepository fisHareketRepository;
 
 	private IBaseService<DepoFis> depoFisService;
 
@@ -36,21 +33,21 @@ public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>
 
 	@Override
 	public List<FisHareketGiris> findAll() {
-		return fisHareketGirisRepository.findAll();
+		return fisHareketRepository.findAll();
 	}
 
 	@Override
 	public int create(FisHareketGiris model) {
 		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme,
 				model, model.getId()));
-		return fisHareketGirisRepository.create(model);
+		return fisHareketRepository.create(model);
 	}
 
 	@Override
 	public FisHareketGiris update(FisHareketGiris model) {
 		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(
 				KullaniciIslemTurleriEnum.Guncelleme, model, model.getId()));
-		FisHareketGiris data = fisHareketGirisRepository.update(model);
+		FisHareketGiris data = fisHareketRepository.update(model);
 		return data;
 	}
 
@@ -58,9 +55,9 @@ public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>
 	public void delete(int id) throws Exception {
 		kullaniciIslemBaseService.create(kullaniciIslemService
 				.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Guncelleme, FisHareketGiris.class, id));
-		FisHareketGiris data = fisHareketGirisRepository.getById(id);
+		FisHareketGiris data = fisHareketRepository.getById(id);
 		if (data.getCikisList().size() <= 0) {
-			fisHareketGirisRepository.delete(id);
+			fisHareketRepository.delete(id);
 			DepoFis model = depoFisService.getById(data.getDepoFis().getId());
 			depoFisService.update(model);
 		} else {
@@ -70,17 +67,17 @@ public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>
 
 	@Override
 	public FisHareketGiris getById(int id) {
-		return fisHareketGirisRepository.getById(id);
+		return fisHareketRepository.getById(id);
 	}
 
 	@Override
 	public List<FisHareketGiris> createAll(List<FisHareketGiris> girisList) {
-		return fisHareketRepository2.createAll(girisList);
+		return fisHareketRepository.createAll(girisList);
 	}
 
 	@Override
 	public List<FisHareketGiris> getAllByFisId(int id) {
-		return fisHareketRepository2.getAllByFisId(id);
+		return fisHareketRepository.getAllByFisId(id);
 	}
 
 	@Override
@@ -99,7 +96,7 @@ public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>
 		 * getirir.
 		 */
 		try {
-			FisHareketGiris model = fisHareketGirisRepository.getById(id);
+			FisHareketGiris model = fisHareketRepository.getById(id);
 			double toplamMiktar = model.getMiktar();
 			for (FisHareketCikis item : model.getCikisList()) {
 				toplamMiktar -= item.getMiktar();
@@ -113,14 +110,8 @@ public class FisHareketGirisServiceImpl implements IBaseService<FisHareketGiris>
 
 	@Autowired
 	@Qualifier("fisHareketGirisRepository")
-	public void setFisHareketRepository2(IFisHareketRepository<FisHareketGiris> fisHareketRepository2) {
-		this.fisHareketRepository2 = fisHareketRepository2;
-	}
-
-	@Autowired
-	@Qualifier("fisHareketGirisRepository")
-	public void setFisHareketGirisRepository(IBaseRepository<FisHareketGiris> fisHareketGirisRepository) {
-		this.fisHareketGirisRepository = fisHareketGirisRepository;
+	public void setFisHareketGirisRepository(IFisHareketRepository fisHareketGirisRepository) {
+		this.fisHareketRepository = fisHareketGirisRepository;
 	}
 
 	@Autowired

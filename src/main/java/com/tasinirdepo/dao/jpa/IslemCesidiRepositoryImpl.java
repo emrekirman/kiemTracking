@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IIslemCesidiRepository;
 import com.tasinirdepo.model.IslemCesidi;
 
 @Repository("islemCesidiRepository")
 @Qualifier("islemCesidiRepository")
-public class IslemCesidiRepositoryImpl implements IBaseRepository<IslemCesidi>{
+public class IslemCesidiRepositoryImpl implements IIslemCesidiRepository{
 
 	@PersistenceContext
 	private EntityManager manager;

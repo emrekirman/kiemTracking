@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IKullaniciIslemRepository;
 import com.tasinirdepo.model.KullaniciIslem;
 
 @Repository("kullaniciIslemRepository")
 @Qualifier("kullaniciIslemRepository")
-public class KullaniciIslemRepositoryImpl implements IBaseRepository<KullaniciIslem> {
+public class KullaniciIslemRepositoryImpl implements IKullaniciIslemRepository {
 
 	@PersistenceContext
 	private EntityManager manager;
@@ -65,6 +65,5 @@ public class KullaniciIslemRepositoryImpl implements IBaseRepository<KullaniciIs
 			throw e;
 		}
 	}
-
 
 }

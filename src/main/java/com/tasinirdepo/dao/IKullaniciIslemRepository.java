@@ -1,8 +1,7 @@
 package com.tasinirdepo.dao;
 
-import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
-import com.tasinirdepo.model.KullaniciIslemTurleri;
+import com.tasinirdepo.model.KullaniciIslem;
 
-public interface IKullaniciIslemRepository {
-	KullaniciIslemTurleri getByEnum(KullaniciIslemTurleriEnum islem);
+public interface IKullaniciIslemRepository extends IBaseRepository<KullaniciIslem>{
+
 }

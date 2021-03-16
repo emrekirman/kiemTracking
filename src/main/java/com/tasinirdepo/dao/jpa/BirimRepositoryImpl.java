@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IBirimRepository;
 import com.tasinirdepo.model.Birim;
 
 @Repository("birimRepository")
 @Qualifier("birimRepository")
-public class BirimRepositoryImpl implements IBaseRepository<Birim> {
+public class BirimRepositoryImpl implements IBirimRepository {
 
 	@PersistenceContext
 	private EntityManager manager;

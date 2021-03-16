@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
-import com.tasinirdepo.dao.IKullaniciIslemRepository;
+import com.tasinirdepo.dao.IKullaniciIslemTurleriRepository;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
 import com.tasinirdepo.model.KullaniciIslemTurleri;
 
 @Repository("kullaniciIslemRepo")
 @Qualifier("kullaniciIslemRepo")
 public class KullaniciIslemTurleriRepositoryIml
-		implements IBaseRepository<KullaniciIslemTurleri>, IKullaniciIslemRepository {
+		implements IKullaniciIslemTurleriRepository {
 
 	@PersistenceContext
 	private EntityManager manager;

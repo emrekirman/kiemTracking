@@ -10,14 +10,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IFisHareketRepository;
 import com.tasinirdepo.model.FisHareketGiris;
 
 @Repository("fisHareketGirisRepository")
 @Qualifier("fisHareketGirisRepository")
-public class FisHareketGirisRepositoryImpl
-		implements IBaseRepository<FisHareketGiris>, IFisHareketRepository<FisHareketGiris> {
+public class FisHareketGirisRepositoryImpl implements IFisHareketRepository {
 
 	@PersistenceContext
 	private EntityManager manager;

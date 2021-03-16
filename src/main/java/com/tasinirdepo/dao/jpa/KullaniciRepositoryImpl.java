@@ -9,13 +9,12 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IKullaniciRepository;
 import com.tasinirdepo.model.Kullanici;
 
 @Repository("kullaniciRepository")
 @Qualifier("kullaniciRepository")
-public class KullaniciRepositoryImpl implements IBaseRepository<Kullanici>, IKullaniciRepository {
+public class KullaniciRepositoryImpl implements IKullaniciRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;

@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IIslemCesidiRepository;
 import com.tasinirdepo.model.IslemCesidi;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IIslemCesidiService;
 
 @Service
 @Transactional
 @Qualifier("islemCesidiService")
-public class IslemCesidiServiceImpl implements IBaseService<IslemCesidi> {
+public class IslemCesidiServiceImpl implements IIslemCesidiService {
 
-	private IBaseRepository<IslemCesidi> islemCesidiRepository;
+	private IIslemCesidiRepository islemCesidiRepository;
 	
 	@Autowired
 	@Qualifier("islemCesidiRepository")
-	public void setIslemCesidiRepository(IBaseRepository<IslemCesidi> islemCesidiRepository) {
+	public void setIslemCesidiRepository(IIslemCesidiRepository islemCesidiRepository) {
 		this.islemCesidiRepository = islemCesidiRepository;
 	}
 

@@ -4,11 +4,8 @@ import java.util.List;
 
 import com.tasinirdepo.model.DepoFis;
 
-public interface IDepoFisRepository {
+public interface IDepoFisRepository extends IBaseRepository<DepoFis>{
 	List<DepoFis> findAll(boolean giris);
-//	int create(DepoFis model);
-//	DepoFis update(DepoFis model);
-//	void delete(int id);
-//	DepoFis getById(int id);
+	
 	List<Integer> getNewFisNo();
 }

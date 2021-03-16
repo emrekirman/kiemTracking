@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IKullaniciIslemRepository;
 import com.tasinirdepo.dao.IKullaniciRepository;
 import com.tasinirdepo.dao.session.SessionCommonImpl;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
@@ -15,14 +16,13 @@ import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.model.Kullanici;
 import com.tasinirdepo.model.KullaniciIslem;
 import com.tasinirdepo.model.KullaniciIslemTurleri;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IKullaniciIslemService;
 
 @Service
 @Qualifier("kullaniciIslemService")
-public class KullaniciIslemServiceImpl implements IBaseService<KullaniciIslem>, IKullaniciIslemService {
+public class KullaniciIslemServiceImpl implements IKullaniciIslemService {
 
-	private IBaseRepository<KullaniciIslem> repository;
+	private IKullaniciIslemRepository repository;
 
 	private IKullaniciRepository repository2;
 
@@ -33,7 +33,7 @@ public class KullaniciIslemServiceImpl implements IBaseService<KullaniciIslem>, 
 	private IBaseRepository<KullaniciIslemTurleri> islemTurleriRepo;
 
 	@Autowired
-	public KullaniciIslemServiceImpl(@Qualifier("kullaniciIslemRepository") IBaseRepository<KullaniciIslem> repository,
+	public KullaniciIslemServiceImpl(@Qualifier("kullaniciIslemRepository") IKullaniciIslemRepository repository,
 			@Qualifier("logRepo") ILogginManager logginManager,
 			@Qualifier("kullaniciRepository") IKullaniciRepository repository2, SessionCommonImpl session,
 			@Qualifier("kullaniciIslemRepo") IBaseRepository<KullaniciIslemTurleri> islemTurleriRepo) {

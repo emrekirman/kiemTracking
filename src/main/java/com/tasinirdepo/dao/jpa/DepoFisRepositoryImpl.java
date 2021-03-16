@@ -10,13 +10,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IDepoFisRepository;
 import com.tasinirdepo.model.DepoFis;
 
 @Repository("depoFisRepository")
 @Qualifier("depoFisRepository")
-public class DepoFisRepositoryImpl implements IBaseRepository<DepoFis>, IDepoFisRepository {
+public class DepoFisRepositoryImpl implements IDepoFisRepository {
 
 	@PersistenceContext
 	private EntityManager manager;

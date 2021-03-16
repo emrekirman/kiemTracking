@@ -7,20 +7,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IBirimRepository;
 import com.tasinirdepo.model.Birim;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IBirimService;
 
 @Service
 @Transactional
 @Qualifier("birimService")
-public class BirimServiceImpl implements IBaseService<Birim> {
+public class BirimServiceImpl implements IBirimService{
 
-	private IBaseRepository<Birim> birimRepository;
+	private IBirimRepository birimRepository;
 
 	@Autowired
 	@Qualifier("birimRepository")
-	public void setBirimRepository(IBaseRepository<Birim> birimRepository) {
+	public void setBirimRepository(IBirimRepository birimRepository) {
 		this.birimRepository = birimRepository;
 	}
 

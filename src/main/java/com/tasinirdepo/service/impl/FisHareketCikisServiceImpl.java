@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tasinirdepo.dao.IBaseRepository;
-import com.tasinirdepo.dao.IFisHareketRepository;
+import com.tasinirdepo.dao.IFisHareketCikisRepository;
+import com.tasinirdepo.dao.StokTanimRepository;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketCikis;
 import com.tasinirdepo.model.FisHareketGiris;
 import com.tasinirdepo.model.KullaniciIslem;
-import com.tasinirdepo.model.StokTanim;
 import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IFisHareketCikisService;
 import com.tasinirdepo.service.IFisHareketGirisService;
@@ -26,9 +26,9 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 
 	private IBaseRepository<FisHareketCikis> fisHareketCikisRepository;
 
-	private IFisHareketRepository<FisHareketCikis> fisHareketRepository;
+	private IFisHareketCikisRepository fisHareketRepository;
 
-	private IBaseRepository<StokTanim> stokTanimRepository;
+	private StokTanimRepository stokTanimRepository;
 
 	private IFisHareketGirisService fisHareketGirisService;
 	
@@ -119,13 +119,13 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 
 	@Autowired
 	@Qualifier("fisHareketCikisRepository")
-	public void setFisHareketRepository(IFisHareketRepository<FisHareketCikis> fisHareketRepository) {
+	public void setFisHareketRepository(IFisHareketCikisRepository fisHareketRepository) {
 		this.fisHareketRepository = fisHareketRepository;
 	}
 
 	@Autowired
 	@Qualifier("stokTanimRepository")
-	public void setStokTanimRepository(IBaseRepository<StokTanim> stokTanimRepository) {
+	public void setStokTanimRepository(StokTanimRepository stokTanimRepository) {
 		this.stokTanimRepository = stokTanimRepository;
 	}
 

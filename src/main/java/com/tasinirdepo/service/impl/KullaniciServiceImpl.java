@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IKullaniciRepository;
 import com.tasinirdepo.dao.session.SessionCommonImpl;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
@@ -23,11 +22,9 @@ import com.tasinirdepo.service.IKullaniciService;
 @Service
 @Transactional
 @Qualifier("kullaniciService")
-public class KullaniciServiceImpl implements IBaseService<Kullanici>, IKullaniciService {
+public class KullaniciServiceImpl implements IKullaniciService {
 
-	private IBaseRepository<Kullanici> kullaniciRepository;
-
-	private IKullaniciRepository kullaniciRepository2;
+	private IKullaniciRepository kullaniciRepository;
 
 	private SessionCommonImpl session;
 
@@ -41,15 +38,10 @@ public class KullaniciServiceImpl implements IBaseService<Kullanici>, IKullanici
 
 	@Autowired
 	@Qualifier("kullaniciRepository")
-	public void setKullaniciRepository(IBaseRepository<Kullanici> kullaniciRepository) {
+	public void setKullaniciRepository(IKullaniciRepository kullaniciRepository) {
 		this.kullaniciRepository = kullaniciRepository;
 	}
 
-	@Autowired
-	@Qualifier("kullaniciRepository")
-	public void setKullaniciRepository2(IKullaniciRepository kullaniciRepository2) {
-		this.kullaniciRepository2 = kullaniciRepository2;
-	}
 
 	@Override
 	public List<Kullanici> findAll() {
@@ -87,7 +79,7 @@ public class KullaniciServiceImpl implements IBaseService<Kullanici>, IKullanici
 
 	@Override
 	public Kullanici startSession(String kadi, String sifre) {
-		return kullaniciRepository2.startSession(kadi, sifre);
+		return kullaniciRepository.startSession(kadi, sifre);
 	}
 
 	@Override

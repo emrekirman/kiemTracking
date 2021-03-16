@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.IKullaniciIslemTurleriRepository;
 import com.tasinirdepo.model.KullaniciIslemTurleri;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IKullaniciIslemTurleriService;
 
 @Service
 @Qualifier("islemTurleriService")
-public class KullaniciIslemTurleriServiceImpl implements IBaseService<KullaniciIslemTurleri> {
+public class KullaniciIslemTurleriServiceImpl implements IKullaniciIslemTurleriService {
 
-	private IBaseRepository<KullaniciIslemTurleri> repository;
+	private IKullaniciIslemTurleriRepository repository;
 
 	@Autowired
 	public KullaniciIslemTurleriServiceImpl(
-			@Qualifier("kullaniciIslemRepo") IBaseRepository<KullaniciIslemTurleri> repository) {
+			@Qualifier("kullaniciIslemRepo") IKullaniciIslemTurleriRepository repository) {
 	}
 
 	@Override

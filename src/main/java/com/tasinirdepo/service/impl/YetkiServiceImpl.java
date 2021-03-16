@@ -8,21 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
-import com.tasinirdepo.dao.jpa.YetkiRepositoryImpl;
+import com.tasinirdepo.dao.IYetkiRepository;
 import com.tasinirdepo.model.Yetki;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IYetkiService;
 
 @Service
 @Transactional
 @Qualifier("yetkiService")
-public class YetkiServiceImpl implements IBaseService<Yetki> {
+public class YetkiServiceImpl implements IYetkiService {
 
-	private IBaseRepository<Yetki> yetkiRepository;
+	private IYetkiRepository yetkiRepository;
 	
 	@Autowired
 	@Qualifier("yetkiRepository")
-	public void setYetkiRepository(YetkiRepositoryImpl yetkiRepository) {
+	public void setYetkiRepository(IYetkiRepository yetkiRepository) {
 		this.yetkiRepository = yetkiRepository;
 	}
 

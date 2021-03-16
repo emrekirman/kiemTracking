@@ -2,8 +2,10 @@ package com.tasinirdepo.dao;
 
 import java.util.List;
 
-public interface IFisHareketRepository<T> {
-	List<T> createAll(List<T> list);
+import com.tasinirdepo.model.FisHareketGiris;
 
-	List<T> getAllByFisId(int id);
+public interface IFisHareketRepository extends IBaseRepository<FisHareketGiris> {
+	List<FisHareketGiris> createAll(List<FisHareketGiris> list);
+
+	List<FisHareketGiris> getAllByFisId(int id);
 }

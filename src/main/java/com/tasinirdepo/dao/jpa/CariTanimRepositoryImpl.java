@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.ICariTanimRepository;
 import com.tasinirdepo.model.CariTanim;
 
 @Repository("cariTanimRepository")
 @Qualifier("cariTanimRepository")
-public class CariTanimRepositoryImpl implements IBaseRepository<CariTanim>{
+public class CariTanimRepositoryImpl implements ICariTanimRepository{
 
 	@PersistenceContext
 	private EntityManager entityManager;
