@@ -3,23 +3,20 @@ package com.tasinirdepo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.model.DepoOlcuBirim;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IDepoOlcuBirimService;
 
 @Service
 @Transactional
-@Qualifier("depoOlcumBirimService")
-public class DepoOlcuBirimServiceImpl implements IBaseService<DepoOlcuBirim> {
+public class DepoOlcuBirimServiceImpl implements IDepoOlcuBirimService {
 
 	private IBaseRepository<DepoOlcuBirim> depoOlcuBirimRepository;
 
 	@Autowired
-	@Qualifier("depoOlcuBirimRepository")
 	public void setDepoOlcuBirimRepository(IBaseRepository<DepoOlcuBirim> depoOlcuBirimRepository) {
 		this.depoOlcuBirimRepository = depoOlcuBirimRepository;
 	}

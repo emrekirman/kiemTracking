@@ -3,7 +3,6 @@ package com.tasinirdepo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +12,11 @@ import com.tasinirdepo.service.IBirimService;
 
 @Service
 @Transactional
-@Qualifier("birimService")
 public class BirimServiceImpl implements IBirimService{
 
 	private IBirimRepository birimRepository;
 
 	@Autowired
-	@Qualifier("birimRepository")
 	public void setBirimRepository(IBirimRepository birimRepository) {
 		this.birimRepository = birimRepository;
 	}

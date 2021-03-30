@@ -23,7 +23,6 @@ import com.tasinirdepo.interfaces.IExcelExportReport;
 import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.StokTanim;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.StokTanimService;
 
 @RestController
@@ -33,16 +32,12 @@ public class StokTanimRestController {
 	@Autowired
 	private StokTanimService service;
 
-	private IBaseService<StokTanim> service2;
-
 	private ILogginManager loggingManager;
 
 	private IExcelExportReport<FisHareketDto> excelHelper;
 
 	@Autowired
-	public StokTanimRestController(@Qualifier("stokTanimService") IBaseService<StokTanim> service2,
-			@Qualifier("girisCikislarReport") IExcelExportReport<FisHareketDto> excelHelper) {
-		this.service2 = service2;
+	public StokTanimRestController(@Qualifier("girisCikislarReport") IExcelExportReport<FisHareketDto> excelHelper) {
 		this.excelHelper = excelHelper;
 	}
 
@@ -56,7 +51,7 @@ public class StokTanimRestController {
 	@KimlikDogrulama
 	public ResponseEntity<List<StokTanim>> getStokTanims(@RequestHeader("token") String token) {
 		try {
-			List<StokTanim> data = service2.findAll();
+			List<StokTanim> data = service.findAll();
 			return ResponseEntity.ok(data);
 		} catch (Exception e) {
 			loggingManager.hataEkle(e, this);
@@ -83,7 +78,7 @@ public class StokTanimRestController {
 	public ResponseEntity<Boolean> createStokTanim(@RequestHeader("token") String token, @RequestBody StokTanim model) {
 		// Stok Tanım Ekleme
 		try {
-			service2.create(model);
+			service.create(model);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			loggingManager.hataEkle(e, this);
@@ -96,7 +91,7 @@ public class StokTanimRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Boolean> delete(@RequestHeader("token") String token, @PathVariable("id") int id) {
 		try {
-			service2.delete(id);
+			service.delete(id);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			loggingManager.hataEkle(e, this);
@@ -109,7 +104,7 @@ public class StokTanimRestController {
 	@KimlikDogrulama
 	public ResponseEntity<StokTanim> getById(@RequestHeader("token") String token, @PathVariable("id") int id) {
 		try {
-			StokTanim model = service2.getById(id);
+			StokTanim model = service.getById(id);
 			return ResponseEntity.ok(model);
 		} catch (Exception e) {
 			loggingManager.hataEkle(e, this);
@@ -122,7 +117,7 @@ public class StokTanimRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Boolean> update(@RequestHeader("token") String token, @RequestBody StokTanim model) {
 		try {
-			service2.update(model);
+			service.update(model);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			loggingManager.hataEkle(e, this);

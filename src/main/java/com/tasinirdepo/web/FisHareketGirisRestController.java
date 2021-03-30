@@ -3,7 +3,6 @@ package com.tasinirdepo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,18 +18,16 @@ import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketGiris;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IDepoFisService;
 import com.tasinirdepo.service.IFisHareketGirisService;
 
 @RestController
 @RequestMapping("/rest")
 public class FisHareketGirisRestController {
 
-	private IFisHareketGirisService fisHareketGirisRepository;
+	private IFisHareketGirisService fisHareketGirisService;
 
-	private IBaseService<FisHareketGiris> service;
-
-	private IBaseService<DepoFis> fisService;
+	private IDepoFisService fisService;
 
 	private ILogginManager logRepo;
 
@@ -40,7 +37,7 @@ public class FisHareketGirisRestController {
 	public ResponseEntity<Boolean> createAll(@RequestHeader("token") String token,
 			@RequestBody List<FisHareketGiris> girisList) {
 		try {
-			fisHareketGirisRepository.createAll(girisList);
+			fisHareketGirisService.createAll(girisList);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);
@@ -53,7 +50,7 @@ public class FisHareketGirisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<DepoFis> update(@RequestHeader("token") String token, @RequestBody FisHareketGiris model) {
 		try {
-			service.update(model);
+			fisHareketGirisService.update(model);
 			DepoFis data = fisService.getById(model.getDepoFis().getId());
 			data.getGirisList().forEach(x -> {
 				x.setDepoFis(null);
@@ -70,7 +67,7 @@ public class FisHareketGirisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Boolean> delete(@RequestHeader("token") String token, @PathVariable int id) {
 		try {
-			service.delete(id);
+			fisHareketGirisService.delete(id);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);
@@ -83,7 +80,7 @@ public class FisHareketGirisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Integer> create(@RequestHeader("token") String token, @RequestBody FisHareketGiris model) {
 		try {
-			int res = service.create(model);
+			int res = fisHareketGirisService.create(model);
 			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);
@@ -92,25 +89,16 @@ public class FisHareketGirisRestController {
 	}
 
 	@Autowired
-	@Qualifier("fisHareketGirisService")
 	public void setFisHareketGirisRepository(IFisHareketGirisService fisHareketGirisRepository) {
-		this.fisHareketGirisRepository = fisHareketGirisRepository;
+		this.fisHareketGirisService = fisHareketGirisRepository;
 	}
 
 	@Autowired
-	@Qualifier("fisHareketGirisService")
-	public void setService(IBaseService<FisHareketGiris> service) {
-		this.service = service;
-	}
-
-	@Autowired
-	@Qualifier("depoFisService")
-	public void setFisService(IBaseService<DepoFis> fisService) {
+	public void setFisService(IDepoFisService fisService) {
 		this.fisService = fisService;
 	}
 
 	@Autowired
-	@Qualifier("logRepo")
 	public void setLogRepo(ILogginManager logRepo) {
 		this.logRepo = logRepo;
 	}

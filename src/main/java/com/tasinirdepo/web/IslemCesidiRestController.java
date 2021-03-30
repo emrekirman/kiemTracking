@@ -3,7 +3,6 @@ package com.tasinirdepo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,17 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.IslemCesidi;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IIslemCesidiService;
 
 @RestController
 @RequestMapping("/rest")
 public class IslemCesidiRestController {
 
-	private IBaseService<IslemCesidi> service;
+	private IIslemCesidiService service;
 
 	@Autowired
-	@Qualifier("islemCesidiService")
-	public void setService(IBaseService<IslemCesidi> service) {
+	public void setService(IIslemCesidiService service) {
 		this.service = service;
 	}
 

@@ -3,24 +3,21 @@ package com.tasinirdepo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
+import com.tasinirdepo.dao.ICariTanimRepository;
 import com.tasinirdepo.model.CariTanim;
 import com.tasinirdepo.service.ICariTanimService;
 
 @Service
 @Transactional
-@Qualifier("cariTanimService")
 public class CariTanimServiceImpl implements ICariTanimService {
 
-	private IBaseRepository<CariTanim> cariTanimRepository;
+	private ICariTanimRepository cariTanimRepository;
 
 	@Autowired
-	@Qualifier("cariTanimRepository")
-	public void setCariTanimRepository(IBaseRepository<CariTanim> cariTanimRepository) {
+	public void setCariTanimRepository(ICariTanimRepository cariTanimRepository) {
 		this.cariTanimRepository = cariTanimRepository;
 	}
 

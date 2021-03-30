@@ -7,21 +7,17 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.tasinirdepo.dao.IKullaniciRepository;
 import com.tasinirdepo.dao.session.SessionCommonImpl;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
 import com.tasinirdepo.model.Kullanici;
-import com.tasinirdepo.model.KullaniciIslem;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IKullaniciIslemService;
 import com.tasinirdepo.service.IKullaniciService;
 
 @Service
 @Transactional
-@Qualifier("kullaniciService")
 public class KullaniciServiceImpl implements IKullaniciService {
 
 	private IKullaniciRepository kullaniciRepository;
@@ -30,14 +26,11 @@ public class KullaniciServiceImpl implements IKullaniciService {
 
 	private IKullaniciIslemService kullaniciIslemService;
 
-	private IBaseService<KullaniciIslem> kullaniciIslemBaseService;
-
 	public KullaniciServiceImpl(SessionCommonImpl session) {
 		this.session = session;
 	}
 
 	@Autowired
-	@Qualifier("kullaniciRepository")
 	public void setKullaniciRepository(IKullaniciRepository kullaniciRepository) {
 		this.kullaniciRepository = kullaniciRepository;
 	}
@@ -50,7 +43,7 @@ public class KullaniciServiceImpl implements IKullaniciService {
 
 	@Override
 	public int create(Kullanici kullanici) {
-		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme,
+		kullaniciIslemService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme,
 				kullanici, kullanici.getId()));
 		kullaniciRepository.create(kullanici);
 		return 0;
@@ -58,7 +51,7 @@ public class KullaniciServiceImpl implements IKullaniciService {
 
 	@Override
 	public Kullanici update(Kullanici model) {
-		kullaniciIslemBaseService.create(
+		kullaniciIslemService.create(
 				kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme, model, model.getId()));
 		kullaniciRepository.update(model);
 		return null;
@@ -66,7 +59,7 @@ public class KullaniciServiceImpl implements IKullaniciService {
 
 	@Override
 	public void delete(int id) {
-		kullaniciIslemBaseService.create(
+		kullaniciIslemService.create(
 				kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme, Kullanici.class, id));
 		kullaniciRepository.delete(id);
 
@@ -102,11 +95,5 @@ public class KullaniciServiceImpl implements IKullaniciService {
 	@Autowired
 	public void setKullanisiIslemRepo(IKullaniciIslemService kullaniciIslemService) {
 		this.kullaniciIslemService = kullaniciIslemService;
-	}
-
-	@Autowired
-	@Qualifier("kullaniciIslemService")
-	public void setKullaniciIslemBaseService(IBaseService<KullaniciIslem> kullaniciIslemBaseService) {
-		this.kullaniciIslemBaseService = kullaniciIslemBaseService;
 	}
 }

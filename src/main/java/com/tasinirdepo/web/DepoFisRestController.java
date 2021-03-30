@@ -3,7 +3,6 @@ package com.tasinirdepo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +24,6 @@ import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.logging.LoggingManager;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketCikis;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IDepoFisService;
 import com.tasinirdepo.service.IFisHareketCikisService;
 
@@ -34,10 +32,7 @@ import com.tasinirdepo.service.IFisHareketCikisService;
 public class DepoFisRestController {
 
 	@Autowired
-	@Qualifier("depoFisService")
-	private IDepoFisService depoFisRepository;
-
-	private IBaseService<DepoFis> depoFisService2;
+	private IDepoFisService depoFisService;
 
 	@Autowired
 	private LoggingManager logRepo;
@@ -48,9 +43,7 @@ public class DepoFisRestController {
 	private IExcelExportReport<StokMevcuduDto> excelHelper;
 
 	@Autowired
-	public DepoFisRestController(@Qualifier("depoFisService") IBaseService<DepoFis> depoFisService2,
-			@Qualifier("stokMevcuduReport") IExcelExportReport<StokMevcuduDto> excelHelper) {
-		this.depoFisService2 = depoFisService2;
+	public DepoFisRestController(IExcelExportReport<StokMevcuduDto> excelHelper) {
 		this.excelHelper = excelHelper;
 	}
 
@@ -59,8 +52,8 @@ public class DepoFisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<DepoFis> createDepoFis(@RequestHeader("token") String token, @RequestBody DepoFis depoFis) {
 		try {
-			int fisId = depoFisService2.create(depoFis);
-			return ResponseEntity.ok(depoFisService2.getById(fisId));
+			int fisId = depoFisService.create(depoFis);
+			return ResponseEntity.ok(depoFisService.getById(fisId));
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -75,7 +68,7 @@ public class DepoFisRestController {
 		try {
 			List<FisHareketCikis> cikisList = depoFis.getCikisList();
 			depoFis.setCikisList(null);
-			depoFisService2.create(depoFis);
+			depoFisService.create(depoFis);
 			for (FisHareketCikis fisHareketCikis : cikisList) {
 				service.cikisIslemi(fisHareketCikis, depoFis);
 			}
@@ -92,7 +85,7 @@ public class DepoFisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<DepoFis> update(@RequestHeader("token") String token, @RequestBody DepoFis model) {
 		try {
-			DepoFis data = depoFisService2.update(model);
+			DepoFis data = depoFisService.update(model);
 			data.getGirisList().forEach(x -> {
 				x.setDepoFis(null);
 			});
@@ -113,8 +106,8 @@ public class DepoFisRestController {
 	public ResponseEntity<List<FaturaListeVM>> getAll(@RequestHeader("token") String token,
 			@PathVariable("giris") boolean giris) {
 		try {
-			List<DepoFis> data1 = depoFisRepository.findAll(giris);
-			List<FaturaListeVM> data = depoFisRepository.createFaturaListeVm(data1);
+			List<DepoFis> data1 = depoFisService.findAll(giris);
+			List<FaturaListeVM> data = depoFisService.createFaturaListeVm(data1);
 			return ResponseEntity.ok(data);
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);
@@ -128,7 +121,7 @@ public class DepoFisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<DepoFis> getAll(@RequestHeader("token") String token, @PathVariable("id") int id) {
 		try {
-			DepoFis data1 = depoFisService2.getById(id);
+			DepoFis data1 = depoFisService.getById(id);
 			data1.getGirisList().forEach(x -> {
 				x.setDepoFis(null);
 				x.setCikisList(null);
@@ -157,7 +150,7 @@ public class DepoFisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Integer> getFisNo(@RequestHeader("token") String token) {
 		try {
-			int data = depoFisRepository.getNewFisNo();
+			int data = depoFisService.getNewFisNo();
 			return ResponseEntity.ok(data);
 
 		} catch (Exception e) {
@@ -171,7 +164,7 @@ public class DepoFisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<List<StokMevcuduDto>> getStokMevcudu(@RequestHeader("token") String token) {
 		try {
-			List<StokMevcuduDto> data = depoFisRepository.stokMevcudu();
+			List<StokMevcuduDto> data = depoFisService.stokMevcudu();
 			return ResponseEntity.ok(data);
 
 		} catch (Exception e) {
@@ -186,7 +179,7 @@ public class DepoFisRestController {
 	public ResponseEntity<Resource> getFile(@RequestHeader("token") String token) {
 		try {
 			String fileName = "stokMevcudu.xls";
-			List<StokMevcuduDto> data = depoFisRepository.stokMevcudu();
+			List<StokMevcuduDto> data = depoFisService.stokMevcudu();
 			InputStreamResource file = new InputStreamResource(excelHelper.toExcel(data));
 			return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
 					.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);

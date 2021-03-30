@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IKullaniciIslemRepository;
 import com.tasinirdepo.dao.IKullaniciRepository;
 import com.tasinirdepo.dao.session.SessionCommonImpl;
@@ -17,9 +15,9 @@ import com.tasinirdepo.model.Kullanici;
 import com.tasinirdepo.model.KullaniciIslem;
 import com.tasinirdepo.model.KullaniciIslemTurleri;
 import com.tasinirdepo.service.IKullaniciIslemService;
+import com.tasinirdepo.service.IKullaniciIslemTurleriService;
 
 @Service
-@Qualifier("kullaniciIslemService")
 public class KullaniciIslemServiceImpl implements IKullaniciIslemService {
 
 	private IKullaniciIslemRepository repository;
@@ -30,13 +28,13 @@ public class KullaniciIslemServiceImpl implements IKullaniciIslemService {
 
 	private SessionCommonImpl session;
 
-	private IBaseRepository<KullaniciIslemTurleri> islemTurleriRepo;
+	private IKullaniciIslemTurleriService islemTurleriRepo;
 
 	@Autowired
-	public KullaniciIslemServiceImpl(@Qualifier("kullaniciIslemRepository") IKullaniciIslemRepository repository,
-			@Qualifier("logRepo") ILogginManager logginManager,
-			@Qualifier("kullaniciRepository") IKullaniciRepository repository2, SessionCommonImpl session,
-			@Qualifier("kullaniciIslemRepo") IBaseRepository<KullaniciIslemTurleri> islemTurleriRepo) {
+	public KullaniciIslemServiceImpl(IKullaniciIslemRepository repository,
+			 ILogginManager logginManager,
+			 IKullaniciRepository repository2, SessionCommonImpl session,
+			IKullaniciIslemTurleriService islemTurleriRepo) {
 		this.repository = repository;
 		this.laggingManager = logginManager;
 		this.repository2 = repository2;

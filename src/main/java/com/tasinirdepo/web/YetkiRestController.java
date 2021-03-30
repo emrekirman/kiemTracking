@@ -3,7 +3,6 @@ package com.tasinirdepo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,17 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.Yetki;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IYetkiService;
 
 @RestController
 @RequestMapping("/rest")
 public class YetkiRestController {
 
-	private IBaseService<Yetki> service;
+	private IYetkiService service;
 
 	@Autowired
-	@Qualifier("yetkiService")
-	public void setService(IBaseService<Yetki> service) {
+	public void setService(IYetkiService service) {
 		this.service = service;
 	}
 

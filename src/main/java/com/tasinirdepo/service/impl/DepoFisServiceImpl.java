@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tasinirdepo.dao.IDepoFisRepository;
 import com.tasinirdepo.dao.IFisHareketCikisRepository;
 import com.tasinirdepo.dao.IFisHareketRepository;
+import com.tasinirdepo.dao.IKullaniciIslemRepository;
 import com.tasinirdepo.dto.FaturaListeVM;
 import com.tasinirdepo.dto.StokMevcuduDto;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
@@ -20,14 +20,11 @@ import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketCikis;
 import com.tasinirdepo.model.FisHareketGiris;
-import com.tasinirdepo.model.KullaniciIslem;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IDepoFisService;
 import com.tasinirdepo.service.IKullaniciIslemService;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-@Qualifier("depoFisService")
 public class DepoFisServiceImpl implements IDepoFisService {
 
 	private IDepoFisRepository depoFisRepository;
@@ -40,7 +37,7 @@ public class DepoFisServiceImpl implements IDepoFisService {
 
 	private IKullaniciIslemService kullaniciIslemService;
 
-	private IBaseService<KullaniciIslem> kullaniciIslemBaseService;
+	private IKullaniciIslemRepository kullaniciIslemBaseService;
 
 	@Override
 	public List<DepoFis> findAll(boolean giris) {
@@ -151,25 +148,21 @@ public class DepoFisServiceImpl implements IDepoFisService {
 	}
 
 	@Autowired
-	@Qualifier("depoFisRepository")
 	public void setDepoFisRepository2(IDepoFisRepository depoFisRepository2) {
 		this.depoFisRepository = depoFisRepository2;
 	}
 
 	@Autowired
-	@Qualifier("fisHareketGirisRepository")
 	public void setGirisRepository(IFisHareketRepository girisRepository) {
 		this.girisRepository = girisRepository;
 	}
 
 	@Autowired
-	@Qualifier("fisHareketCikisRepository")
 	public void setCikisRepository(IFisHareketCikisRepository cikisRepository) {
 		this.cikisRepository = cikisRepository;
 	}
 
 	@Autowired
-	@Qualifier("logRepo")
 	public void setLogRepo(ILogginManager logRepo) {
 		this.logRepo = logRepo;
 	}
@@ -180,8 +173,7 @@ public class DepoFisServiceImpl implements IDepoFisService {
 	}
 
 	@Autowired
-	@Qualifier("kullaniciIslemService")
-	public void setKullaniciIslemBaseService(IBaseService<KullaniciIslem> kullaniciIslemBaseService) {
+	public void setKullaniciIslemBaseService(IKullaniciIslemRepository kullaniciIslemBaseService) {
 		this.kullaniciIslemBaseService = kullaniciIslemBaseService;
 	}
 

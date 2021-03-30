@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,24 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.CariTanim;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.ICariTanimService;
 
 @RestController
 @RequestMapping("/rest")
 public class CariTanimRestController {
 
-	private IBaseService<CariTanim> service;
+	private ICariTanimService service;
 
 	private ILogginManager logManager;
 
 	@Autowired
-	@Qualifier("cariTanimService")
-	public void setService(IBaseService<CariTanim> service) {
+	public void setService(ICariTanimService service) {
 		this.service = service;
 	}
 
 	@Autowired
-	@Qualifier("logRepo")
 	public void setLogManager(ILogginManager logManager) {
 		this.logManager = logManager;
 	}

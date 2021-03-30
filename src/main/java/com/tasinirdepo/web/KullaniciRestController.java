@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +20,6 @@ import com.tasinirdepo.dao.session.SessionCommonImpl;
 import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.Kullanici;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IKullaniciService;
 
 @RestController
@@ -31,16 +29,12 @@ public class KullaniciRestController {
 	@Autowired
 	private IKullaniciService service;
 
-	private IBaseService<Kullanici> service2;
-
 	private SessionCommonImpl session;
 
 	private ILogginManager logRepo;
 
 	@Autowired
-	public KullaniciRestController(@Qualifier("kullaniciService") IBaseService<Kullanici> service2,
-			SessionCommonImpl session, @Qualifier("logRepo") ILogginManager logrepo) {
-		this.service2 = service2;
+	public KullaniciRestController(SessionCommonImpl session,ILogginManager logrepo) {
 		this.session = session;
 		this.logRepo = logrepo;
 	}
@@ -50,7 +44,7 @@ public class KullaniciRestController {
 	@KimlikDogrulama
 	public ResponseEntity<List<Kullanici>> getAll(@RequestHeader("token") String token) {
 		try {
-			List<Kullanici> data = service2.findAll();
+			List<Kullanici> data = service.findAll();
 			return ResponseEntity.ok(data);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +19,6 @@ import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketCikis;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IFisHareketCikisService;
 
 @RestController
@@ -30,13 +28,9 @@ public class FisHareketCikisRestController {
 	@Autowired
 	private IFisHareketCikisService service;
 
-	private IBaseService<FisHareketCikis> service2;
-
 	private ILogginManager logRepo;
 
-	public FisHareketCikisRestController(@Qualifier("fisHareketCikisService") IBaseService<FisHareketCikis> service2,
-			@Qualifier("logRepo") ILogginManager logRepo) {
-		this.service2 = service2;
+	public FisHareketCikisRestController(ILogginManager logRepo) {
 		this.logRepo = logRepo;
 	}
 
@@ -59,7 +53,7 @@ public class FisHareketCikisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<DepoFis> update(@RequestHeader("token") String token, @RequestBody FisHareketCikis model) {
 		try {
-			FisHareketCikis data = service2.update(model);
+			FisHareketCikis data = service.update(model);
 			DepoFis dataFis = data.getDepoFis();
 			dataFis.getCikisList().forEach(x -> {
 				x.setDepoFis(null);
@@ -76,7 +70,7 @@ public class FisHareketCikisRestController {
 	@KimlikDogrulama
 	public ResponseEntity<Boolean> delete(@RequestHeader("token") String token, @PathVariable int id) {
 		try {
-			service2.delete(id);
+			service.delete(id);
 			return ResponseEntity.ok(true);
 		} catch (Exception e) {
 			logRepo.hataEkle(e, this);

@@ -3,38 +3,29 @@ package com.tasinirdepo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tasinirdepo.dao.IBaseRepository;
 import com.tasinirdepo.dao.IFisHareketCikisRepository;
 import com.tasinirdepo.dao.StokTanimRepository;
 import com.tasinirdepo.enums.KullaniciIslemTurleriEnum;
 import com.tasinirdepo.model.DepoFis;
 import com.tasinirdepo.model.FisHareketCikis;
 import com.tasinirdepo.model.FisHareketGiris;
-import com.tasinirdepo.model.KullaniciIslem;
-import com.tasinirdepo.service.IBaseService;
 import com.tasinirdepo.service.IFisHareketCikisService;
 import com.tasinirdepo.service.IFisHareketGirisService;
 import com.tasinirdepo.service.IKullaniciIslemService;
 
 @Service
-@Qualifier("fisHareketCikisService")
-public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>, IFisHareketCikisService {
+public class FisHareketCikisServiceImpl implements IFisHareketCikisService {
 
-	private IBaseRepository<FisHareketCikis> fisHareketCikisRepository;
-
-	private IFisHareketCikisRepository fisHareketRepository;
+	private IFisHareketCikisRepository fisHareketCikisRepository;
 
 	private StokTanimRepository stokTanimRepository;
 
 	private IFisHareketGirisService fisHareketGirisService;
 	
 	private IKullaniciIslemService kullaniciIslemService;
-
-	private IBaseService<KullaniciIslem> kullaniciIslemBaseService;
 
 	@Override
 	@Transactional
@@ -45,7 +36,7 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	@Override
 	@Transactional
 	public int create(FisHareketCikis model) {
-		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme,
+		kullaniciIslemService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Ekleme,
 				FisHareketCikis.class, model.getId()));
 		return fisHareketCikisRepository.create(model);
 	}
@@ -53,7 +44,7 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	@Override
 	@Transactional
 	public FisHareketCikis update(FisHareketCikis model) {
-		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Guncelleme,
+		kullaniciIslemService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Guncelleme,
 				FisHareketCikis.class, model.getId()));
 		return fisHareketCikisRepository.update(model);
 	}
@@ -61,7 +52,7 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	@Override
 	@Transactional
 	public void delete(int id) {
-		kullaniciIslemBaseService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Silme,
+		kullaniciIslemService.create(kullaniciIslemService.kullaniciIslemOlustur(KullaniciIslemTurleriEnum.Silme,
 				FisHareketCikis.class, id));
 		fisHareketCikisRepository.delete(id);
 	}
@@ -75,7 +66,7 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	@Override
 	@Transactional
 	public List<FisHareketCikis> createAll(List<FisHareketCikis> girisList) {
-		return fisHareketRepository.createAll(girisList);
+		return fisHareketCikisRepository.createAll(girisList);
 	}
 
 	@Override
@@ -112,25 +103,16 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	}
 
 	@Autowired
-	@Qualifier("fisHareketCikisRepository")
-	public void setFisHareketCikisRepository(IBaseRepository<FisHareketCikis> fisHareketCikisRepository) {
+	public void setFisHareketCikisRepository(IFisHareketCikisRepository fisHareketCikisRepository) {
 		this.fisHareketCikisRepository = fisHareketCikisRepository;
 	}
 
 	@Autowired
-	@Qualifier("fisHareketCikisRepository")
-	public void setFisHareketRepository(IFisHareketCikisRepository fisHareketRepository) {
-		this.fisHareketRepository = fisHareketRepository;
-	}
-
-	@Autowired
-	@Qualifier("stokTanimRepository")
 	public void setStokTanimRepository(StokTanimRepository stokTanimRepository) {
 		this.stokTanimRepository = stokTanimRepository;
 	}
 
 	@Autowired
-	@Qualifier("fisHareketGirisService")
 	public void setFisHareketGirisService(IFisHareketGirisService fisHareketGirisService) {
 		this.fisHareketGirisService = fisHareketGirisService;
 	}
@@ -138,12 +120,6 @@ public class FisHareketCikisServiceImpl implements IBaseService<FisHareketCikis>
 	@Autowired
 	public void setKullanisiIslemRepo(IKullaniciIslemService kullaniciIslemService) {
 		this.kullaniciIslemService = kullaniciIslemService;
-	}
-
-	@Autowired
-	@Qualifier("kullaniciIslemService")
-	public void setKullaniciIslemBaseService(IBaseService<KullaniciIslem> kullaniciIslemBaseService) {
-		this.kullaniciIslemBaseService = kullaniciIslemBaseService;
 	}
 
 }

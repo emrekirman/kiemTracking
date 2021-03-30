@@ -3,7 +3,6 @@ package com.tasinirdepo.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,24 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tasinirdepo.interfaces.ILogginManager;
 import com.tasinirdepo.interfaces.KimlikDogrulama;
 import com.tasinirdepo.model.DepoOlcuBirim;
-import com.tasinirdepo.service.IBaseService;
+import com.tasinirdepo.service.IDepoOlcuBirimService;
 
 @RestController
 @RequestMapping("/rest")
 public class DepoOlcuBirimRestController {
 
-	private IBaseService<DepoOlcuBirim> service;
+	private IDepoOlcuBirimService service;
 
 	private ILogginManager logManager;
 
 	@Autowired
-	@Qualifier("depoOlcumBirimService")
-	public void setPetService(IBaseService<DepoOlcuBirim> petService) {
-		this.service = petService;
+	public void setService(IDepoOlcuBirimService service) {
+		this.service = service;
 	}
 
 	@Autowired
-	@Qualifier("logRepo")
 	public void setLogManager(ILogginManager logManager) {
 		this.logManager = logManager;
 	}

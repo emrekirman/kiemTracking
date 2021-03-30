@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.tasinirdepo.dao.IYetkiRepository;
@@ -14,13 +13,11 @@ import com.tasinirdepo.service.IYetkiService;
 
 @Service
 @Transactional
-@Qualifier("yetkiService")
 public class YetkiServiceImpl implements IYetkiService {
 
 	private IYetkiRepository yetkiRepository;
 	
 	@Autowired
-	@Qualifier("yetkiRepository")
 	public void setYetkiRepository(IYetkiRepository yetkiRepository) {
 		this.yetkiRepository = yetkiRepository;
 	}
